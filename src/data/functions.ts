@@ -36,9 +36,6 @@ export function getItem(itemId: number): Item {
 
 export function getMaterialsInput(): Item[] {
   return items
-    .filter(
-      i => !i.mrrl && (i.rarity === Rarity.Rare || i.rarity === Rarity.Epic)
-    )
     .sort((a, b) => {
       if (a.rarity === b.rarity) {
         return a.name.localeCompare(b.name);

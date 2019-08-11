@@ -19,6 +19,7 @@ interface State {
   route: RouteStep[];
   requiredMats: Materials;
   includeSecretShop: boolean;
+  showComponents: boolean;
   includeVendorPictures: boolean;
   selectedItems: { [itemId: number]: any };
 }
@@ -29,6 +30,7 @@ const App: React.FC = () => {
     route: [],
     requiredMats: { items: [], gold: 0 },
     includeSecretShop: true,
+    showComponents: false,
     includeVendorPictures: true,
     selectedItems: {}
   });
@@ -106,6 +108,15 @@ const App: React.FC = () => {
     }));
   };
 
+  const onShowComponentsChangeChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+
+    setState(prevState => ({
+      ...prevState,
+      showComponents: checked
+    }));
+  };
+
   const onIncludeVendorPicturesChange = (
     event: ChangeEvent<HTMLInputElement>
   ) => {
@@ -141,6 +152,7 @@ const App: React.FC = () => {
         onQuantityChange={onQuantityChange}
         wantedItems={state.wantedItems}
         includeSecretShop={state.includeSecretShop}
+        showComponents={state.showComponents}
       />
       <label>
         <input
@@ -149,6 +161,15 @@ const App: React.FC = () => {
           onChange={onSecretShopChangeChecked}
         />
         Include secret shop (cloak required)
+      </label>
+      <br />
+      <label>
+        <input
+          type="checkbox"
+          checked={state.showComponents}
+          onChange={onShowComponentsChangeChecked}
+        />
+        Show components
       </label>
       <br />
       <label>

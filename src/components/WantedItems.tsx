@@ -8,13 +8,15 @@ let offeredItems = getMaterialsInput();
 interface Props {
   wantedItems: WantedItem[];
   includeSecretShop: boolean;
+  showComponents: boolean;
   onQuantityChange: (itemId: number, quantity: number) => void;
 }
 
 const WantedItems: React.FC<Props> = ({
   onQuantityChange,
   wantedItems,
-  includeSecretShop
+  includeSecretShop,
+  showComponents
 }) => {
   const onWantChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
@@ -41,7 +43,7 @@ const WantedItems: React.FC<Props> = ({
       <h2>Materials</h2>
       <div>
         {offeredItems
-          .filter(item => !item.secret || includeSecretShop)
+          .filter(item => (item.mrrl || showComponents) && (!item.secret || includeSecretShop))
           .map(item => (
             <div key={item.itemId} className={`col-6 ${style.item}`}>
               <input
